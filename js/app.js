@@ -24,7 +24,10 @@ var Inbox = React.createClass({
 
   componentDidMount: function() {
     $.getJSON("api/inbox.json").then(function (response) {
-      this.setState({messages: response.messages});
+      this.setState({
+        messages: response.messages,
+        labels: response.labels
+      });
     }.bind(this));
   },
 
@@ -128,6 +131,7 @@ var Inbox = React.createClass({
             applyLabel={this.applyLabel}
             deleteMessages={this.deleteMessages}
             removeLabel={this.removeLabel}
+            labels={this.state.labels}
             messages={this.state.messages} />
 
           <MessageList messages={this.state.messages}

@@ -37,11 +37,18 @@ var LabelSelect = React.createClass({
   },
 
   render: function () {
+    var options = this.props.labels;
+    if (options) {
+      var labels = options.map(function (label) {
+        return (
+          <option value={label}>{label}</option>
+        )
+      });
+    }
     return (
       <select ref={this.props.ref} className="form-control label-select" disabled={!this.props.enabled} onChange={this.handleChange}>
         <option>{this.props.text}</option>
-        <option value="dev">dev</option>
-        <option value="personal">personal</option>
+        {labels}
       </select>
     )
   }
@@ -82,11 +89,13 @@ var Toolbar = React.createClass({
           <LabelSelect  text="Apply Label"
                         enabled={someSelected}
                         ref="applyLabel"
+                        labels={this.props.labels}
                         onChange={this.props.applyLabel} />
 
           <LabelSelect  text="Remove Label"
                         enabled={someSelected}
                         ref="removeLabel"
+                        labels={this.props.labels}
                         onChange={this.props.removeLabel} />
 
           <EnabledButton  enabled={someSelected} onClick={this.props.deleteMessages}>
