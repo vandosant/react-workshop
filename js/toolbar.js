@@ -103,10 +103,29 @@ var Toolbar = React.createClass({
           </EnabledButton>
         </div>
         <div className="col-md-4">
-          <p className="text-right">
-            <span className="badge">{unreadMessageCount}</span> unread messages
-          </p>
+          <UnreadMessages className="badge" unreadMessageCount={unreadMessageCount} />
         </div>
+      </div>
+    )
+  }
+});
+
+var UnreadMessages = React.createClass({
+  updateMessage: function() {
+    if (this.props.unreadMessageCount === 1) {
+      this.props.unreadMessage = "unread message"
+    } else {
+      this.props.unreadMessage = "unread messages"
+    }
+  },
+  componentDidUpdate: function() {
+    this.updateMessage();
+  },
+  render: function() {
+    this.updateMessage();
+    return(
+      <div className="text-right">
+      <span className={this.props.className}>{this.props.unreadMessageCount}</span>{this.props.unreadMessage}
       </div>
     )
   }
